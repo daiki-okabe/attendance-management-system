@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "getAllMessages",
+        name = "getAllUsers",
         query = "SELECT u FROM User AS u ORDER BY u.user_id DESC"
     )
 })
@@ -37,17 +37,23 @@ public class User {
     @Column(name = "USER_CLASS", nullable = false)
     private Integer user_class;
 
+    @Column(name = "PASSWORD", nullable = false, length = 200)
+    private String password;
+
     @Column(name = "INP_USER", length = 200)
     private String inp_user;
 
     @Column(name = "INP_DATE")
-    private Timestamp inp_date;
+    private LocalDateTime inp_date;
 
     @Column(name = "UPD_USER", length = 200)
     private String upd_user;
 
     @Column(name = "UPD_DATE")
-    private Timestamp upd_date;
+    private LocalDateTime upd_date;
+
+    @Column(name = "DEL_FLG")
+    private Integer del_flg;
 
     public Integer getUser_id() {
         return user_id;
@@ -97,11 +103,11 @@ public class User {
         this.inp_user = inp_user;
     }
 
-    public Timestamp getInp_date() {
+    public LocalDateTime getInp_date() {
         return inp_date;
     }
 
-    public void setInp_date(Timestamp inp_date) {
+    public void setInp_date(LocalDateTime inp_date) {
         this.inp_date = inp_date;
     }
 
@@ -113,11 +119,27 @@ public class User {
         this.upd_user = upd_user;
     }
 
-    public Timestamp getUpd_date() {
+    public LocalDateTime getUpd_date() {
         return upd_date;
     }
 
-    public void setUpd_date(Timestamp upd_date) {
+    public void setUpd_date(LocalDateTime upd_date) {
         this.upd_date = upd_date;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getDel_flg() {
+        return del_flg;
+    }
+
+    public void setDel_flg(Integer del_flg) {
+        this.del_flg = del_flg;
     }
 }

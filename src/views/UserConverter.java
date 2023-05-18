@@ -28,6 +28,7 @@ public class UserConverter {
          newUser.setUser_role(ev.getUser_role());
          newUser.setUser_class(ev.getUser_class());
          newUser.setDept_id(ev.getDept_id());
+         newUser.setPassword(ev.getPassword());
          newUser.setInp_date(ev.getInp_date());
          newUser.setInp_user(ev.getInp_user());
          newUser.setUpd_date(ev.getUpd_date());
@@ -53,6 +54,7 @@ public class UserConverter {
         newUserView.setUser_role(e.getUser_role());
         newUserView.setUser_class(e.getUser_class());
         newUserView.setDept_id(e.getDept_id());
+        newUserView.setPassword(e.getPassword());
         newUserView.setInp_date(e.getInp_date());
         newUserView.setInp_user(e.getInp_user());
         newUserView.setUpd_date(e.getUpd_date());
@@ -87,6 +89,7 @@ public class UserConverter {
         ev.setUser_role(ev.getUser_role());
         ev.setUser_class(ev.getUser_class());
         ev.setDept_id(ev.getDept_id());
+        ev.setPassword(ev.getPassword());
         ev.setInp_date(ev.getInp_date());
         ev.setInp_user(ev.getInp_user());
         ev.setUpd_date(ev.getUpd_date());
