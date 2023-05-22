@@ -17,14 +17,14 @@ import utils.DBUtil;
 /**
  * Servlet implementation class IndexServlet
  */
-@WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/m_user_index")
+public class IndexUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndexServlet() {
+    public IndexUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,7 @@ public class IndexServlet extends HttpServlet {
 
         request.setAttribute("users", users);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/contents/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/contents/m_user_view.jsp");
         rd.forward(request, response);
     }
 }
