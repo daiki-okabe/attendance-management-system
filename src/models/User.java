@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
         name = "getAllUsers",
-        query = "SELECT u FROM User AS u ORDER BY u.user_id ASC"
+        query = "SELECT u FROM User AS u WHERE u.del_flg=0 ORDER BY u.user_id ASC"
     )
 })
 @Table(name = "M_USER")

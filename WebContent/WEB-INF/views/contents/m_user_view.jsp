@@ -5,36 +5,45 @@
 
         <h2>ユーザー一覧</h2>
         <div style="height:400px; width:720px; overflow-y:scroll;">
-        <form method="POST">
+
             <table>
                <tr>
-                    <th>ユーザーID</th> <th>ユーザー名</th> <th>所属部署ID</th> <th>権限</th> <th>ユーザー区分	</th> <th>パスワード	</th>
+                    <th >ID　 ユーザー名   所属部署ID 権限　　　   ユーザー区分 パスワード　　　　　　　　　　  </th>
                </tr>
-                <c:forEach var="users" items="${users}">
-                    <tr>
-                        <td><c:out value="${users.user_id}"/></td>
-                            <td><input type="text" name="user_name" id="USER_NAME"  style="width:80px"  value="${users.user_name}" /></td>
-                                <td><input type="text" name="dept_id" id="DEPT_ID" style="width:80px" value="${users.dept_id}" /></td>
-                                    <td><input type="text" name="user_role"${users.user_id} id="USER_ROLE"  style="width:80px"  value="${users.user_role}" /></td>
-                                        <td><input type="text" name="user_class${users.user_id}" id="USER_CLASS" style="width:80px"  value="${users.user_class}" /></td>
-                                            <td><input type="text" name="password${users.user_id}" id="PASSWORD" style="width:120px"   value="${users.password}" /></td>
-                                                <td><input type="button"  onclick="location.href='${pageContext.request.contextPath}/m_user_update'"  value="更新"/></td>
-                                                    <td><input type="button"  onclick="location.href='${pageContext.request.contextPath}/m_user_delete'"  value="削除"/></td>
-                    </tr>
-                </c:forEach>
+            <c:forEach var="users" items="${users}">
+               <tr>
+                   <td>
+                        <form method="POST" action="${pageContext.request.contextPath}/m_user_upd_del?id=${users.user_id}">
+                               <label  for="USER_ID">${users.user_id}　</label> <input type="hidden" name="user_id" id="USER_ID"  value="${users.user_id}" />
+                               <input type="text" name="user_name" id="USER_NAME"  style="width:80px"  value="${users.user_name}" />
+                               <input type="text" name="dept_id" id="DEPT_ID" style="width:80px" value="${users.dept_id}" />
+                               <input type="text" name="user_role" id="USER_ROLE"  style="width:80px"  value="${users.user_role}" />
+                               <input type="text" name="user_class" id="USER_CLASS" style="width:80px"  value="${users.user_class}" />
+                               <input type="text" name="password" id="PASSWORD" style="width:120px"   value="${users.password}" />
+                               <input type="submit"  name="type"  value="更新"/>
+                               <input type="submit"  name="type"  value="削除"/>
+                        </form>
+                   </td>
+               </tr>
+            </c:forEach>
             </table>
-            </form>
+        <script>
+        function confirmUpdate() {
+                document.forms[1].submit();
+        }
+        </script>
+
     </div>
 
-    <div>
+    <div >
     <form method="POST" action="${pageContext.request.contextPath}/m_user_create">
-        <label for="USER_NAME">ユーザー名</label> <input type="text" name="user_name" id="USER_NAME" />
+        <label for="USER_NAME">ユーザー名　</label> <input type="text" name="user_name" id="USER_NAME" />
         <br /><br />
 
-        <label for="DEPT_ID">所属部署ID</label> <input type="text" name="dept_id" id="DEPT_ID" />
+        <label for="DEPT_ID">所属部署ID　</label> <input type="text" name="dept_id" id="DEPT_ID" />
         <br /><br />
 
-        <label for="USER_ROLE">権限</label>       	一般:<input type="radio" name="user_role" value="0">
+        <label for="USER_ROLE" >権限　　　　</label>       	一般:<input type="radio" name="user_role" value="0">
                                                                                         管理者:<input type="radio" name="user_role" value="1">
         <br /><br />
 
@@ -43,7 +52,7 @@
                                                                                                     協力会社社員:<input type="radio" name="user_class" value="3">
         <br /><br />
 
-        <label for="PASSWORD">パスワード</label> <input type="text" name="password" id="PASSWORD" />
+        <label for="PASSWORD">パスワード　</label> <input type="text" name="password" id="PASSWORD" />
         <br /><br />
 
         <button type="submit">新規データとして登録</button>

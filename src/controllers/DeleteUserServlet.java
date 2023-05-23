@@ -14,19 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 import constants.JpaConst;
 import models.User;
 import utils.DBUtil;
-import utils.EncryptUtil;
 
 /**
  * Servlet implementation class UpdateUserServlet
  */
-@WebServlet("/m_user_update")
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet("/m_user_delete")
+public class DeleteUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserServlet() {
+    public DeleteUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,11 +44,7 @@ public class UpdateUserServlet extends HttpServlet {
         System.out.println("id:"+id);
             User current = em.find(User.class,id );
 
-            current.setUser_name(request.getParameter("user_name"));
-            current.setDept_id( Integer.parseInt(request.getParameter("dept_id")));
-            current.setUser_role(Integer.parseInt(request.getParameter("user_role")));
-            current.setUser_class(Integer.parseInt(request.getParameter("user_class")));
-            current.setPassword(EncryptUtil.getPasswordEncrypt(request.getParameter("password"), JpaConst.PEPPER) );
+            current.setDel_flg(JpaConst.FLG_TRUE);
             LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得
             currentTime.format(DateTimeFormatter.ofPattern("yyyy/-MM/dd HH:mm" ));
             current.setUpd_date(currentTime);

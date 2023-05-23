@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import constants.JpaConst;
 import models.User;
 import utils.DBUtil;
+import utils.EncryptUtil;
 
 /**
  * Servlet implementation class CreateServlet
@@ -36,7 +38,6 @@ public class CreateUserServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
         em.getTransaction().begin();
 
-        // Messageのインスタンスを生成
         User u = new User();
 
         String user_name = request.getParameter("user_name");
@@ -52,7 +53,10 @@ public class CreateUserServlet extends HttpServlet {
         u.setUser_class(user_class);
 
         String password = request.getParameter("password");
-        u.setPassword(password);
+        u.setPassword(EncryptUtil.getPasswordEncrypt(password, JpaConst.PEPPER) );
+
+        Integer del_flg=JpaConst.FLG_FALSE;
+        u.setDel_flg(del_flg);
 
         LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得
         currentTime.format(DateTimeFormatter.ofPattern("yyyy/-MM/dd HH:mm" ));

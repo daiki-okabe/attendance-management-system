@@ -12,4 +12,5 @@ public interface JpaConst {
         int ROLE_GENERAL = 0; //管理者権限OFF(一般)
         int FLG_TRUE = 1; //削除フラグON(削除済み)
         int FLG_FALSE = 0; //削除フラグOFF(現役)
+        String PEPPER="qwerty";
 }
