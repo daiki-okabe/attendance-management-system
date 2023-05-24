@@ -15,6 +15,7 @@ import constants.JpaConst;
 import models.User;
 import utils.DBUtil;
 import utils.EncryptUtil;
+import utils.StringCheck;
 
 /**
  * Servlet implementation class CreateServlet
@@ -37,6 +38,13 @@ public class CreateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
         em.getTransaction().begin();
+
+        if( !request.getParameter("user_name").isBlank() &&
+                !StringCheck.IsBlankOrNotNumelic(request.getParameter("dept_id")) &&
+                    request.getParameter("user_role") != null&&
+                        request.getParameter("user_class") != null &&
+                            !request.getParameter("password").isBlank())
+        {
 
         User u = new User();
 
@@ -74,6 +82,11 @@ public class CreateUserServlet extends HttpServlet {
 
         // 自動採番されたIDの値を表示
         response.getWriter().append(Integer.valueOf(u.getUser_id()).toString());
+        }
+        else
+        {
+            System.out.println("入力エラー");
+        }
 
         em.close();
 

@@ -4,24 +4,40 @@
     <c:param name="content">
 
         <h2>ユーザー一覧</h2>
-        <div style="height:400px; width:720px; overflow-y:scroll;">
-
+        <div>
             <table>
                <tr>
-                    <th >ID　 ユーザー名   所属部署ID 権限　　　   ユーザー区分 パスワード　　　　　　　　　　  </th>
+                    <th >
+                         <table>
+                             <tr>
+                                 <th style="width:80px">ID</th>
+                                 <th style="width:80px"> ユーザー名<th>
+                                 <th style="width:96px">所属部署ID</th>
+                                 <th style="width:80px">権限</th>
+                                 <th style="width:96px">ユーザー区分</th>
+                                 <th style="width:120px">パスワード</th>
+                                 <th style="width:60px"></th>
+                                 <th style="width:60px"></th>
+                             </tr>
+                          </table>
+                      </th>
                </tr>
             <c:forEach var="users" items="${users}">
                <tr>
-                   <td>
+                   <td valign="top">
                         <form method="POST" action="${pageContext.request.contextPath}/m_user_upd_del?id=${users.user_id}">
-                               <label  for="USER_ID">${users.user_id}　</label> <input type="hidden" name="user_id" id="USER_ID"  value="${users.user_id}" />
-                               <input type="text" name="user_name" id="USER_NAME"  style="width:80px"  value="${users.user_name}" />
-                               <input type="text" name="dept_id" id="DEPT_ID" style="width:80px" value="${users.dept_id}" />
-                               <input type="text" name="user_role" id="USER_ROLE"  style="width:80px"  value="${users.user_role}" />
-                               <input type="text" name="user_class" id="USER_CLASS" style="width:80px"  value="${users.user_class}" />
-                               <input type="text" name="password" id="PASSWORD" style="width:120px"   value="${users.password}" />
-                               <input type="submit"  name="type"  value="更新"/>
-                               <input type="submit"  name="type"  value="削除"/>
+                            <table>
+                             <tr>
+                                 <th style="width:80px"><label  for="USER_ID">${users.user_id}　</label> <input type="hidden" name="user_id" id="USER_ID"  value="${users.user_id}" /></th>
+                                 <th style="width:80px"><input type="text" name="user_name" id="USER_NAME"   value="${users.user_name}" style="width:80px"/></th>
+                                 <th style="width:80px"><input type="text" name="dept_id" id="DEPT_ID"  value="${users.dept_id}" style="width:80px"/></th>
+                                 <th style="width:80px"><input type="text" name="user_role" id="USER_ROLE" value="${users.user_role}" style="width:80px"/></th>
+                                 <th style="width:80px"><input type="text" name="user_class" id="USER_CLASS"  value="${users.user_class}" style="width:80px"/></th>
+                                 <th style="width:120px"><input type="text" name="password" id="PASSWORD"  value="${users.password}" style="width:120px"/></th>
+                                 <th style="width:60px"><input type="submit"  name="type"  value="更新"/></th>
+                                 <th style="width:60px"><input type="submit"  name="type"  value="削除"/></th>
+                             </tr>
+                          </table>
                         </form>
                    </td>
                </tr>

@@ -15,6 +15,7 @@ import constants.JpaConst;
 import models.User;
 import utils.DBUtil;
 import utils.EncryptUtil;
+import utils.StringCheck;
 
 /**
  * Servlet implementation class UpdateUserServlet
@@ -45,23 +46,46 @@ public class UpdateUserServlet extends HttpServlet {
         System.out.println("id:"+id);
             User current = em.find(User.class,id );
 
-            current.setUser_name(request.getParameter("user_name"));
-            current.setDept_id( Integer.parseInt(request.getParameter("dept_id")));
-            current.setUser_role(Integer.parseInt(request.getParameter("user_role")));
-            current.setUser_class(Integer.parseInt(request.getParameter("user_class")));
-            current.setPassword(EncryptUtil.getPasswordEncrypt(request.getParameter("password"), JpaConst.PEPPER) );
-            LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得
-            currentTime.format(DateTimeFormatter.ofPattern("yyyy/-MM/dd HH:mm" ));
-            current.setUpd_date(currentTime);
+            if( !request.getParameter("user_name").isBlank() &&
+                    !StringCheck.IsBlankOrNotNumelic(request.getParameter("dept_id")) &&
+                        !StringCheck.IsBlankOrNotNumelic(request.getParameter("user_role"))&&
+                            !StringCheck.IsBlankOrNotNumelic(request.getParameter("user_class")))
+            {
+                String user_name=request.getParameter("user_name");
+                Integer dept_id=Integer.parseInt(request.getParameter("dept_id"));
+                Integer user_role=Integer.parseInt(request.getParameter("user_role"));
+                Integer user_class= Integer.parseInt(request.getParameter("user_class"));
+                if(!request.getParameter("password").isBlank())
+                {
+                    String password=EncryptUtil.getPasswordEncrypt(request.getParameter("password"), JpaConst.PEPPER) ;
+                    current.setPassword(password);
+                    System.out.println("パスワードセット");
+                }
 
 
-            // データベースを更新
-            em.getTransaction().begin();
-            em.getTransaction().commit();
-            em.close();
+                current.setUser_name(user_name);
+                current.setDept_id(dept_id);
+                current.setUser_role(user_role);
+                current.setUser_class(user_class);
+                LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得
+                currentTime.format(DateTimeFormatter.ofPattern("yyyy/-MM/dd HH:mm" ));
+                current.setUpd_date(currentTime);
 
-            // セッションスコープ上の不要になったデータを削除
-            request.getSession().removeAttribute("id");
+
+                // データベースを更新
+                em.getTransaction().begin();
+                em.getTransaction().commit();
+                em.close();
+                System.out.println("更新しました");
+
+                // セッションスコープ上の不要になったデータを削除
+                request.getSession().removeAttribute("id");
+            }
+            else
+            {
+                System.out.println("更新できません");
+            }
+
 
 
 

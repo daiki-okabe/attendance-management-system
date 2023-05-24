@@ -33,8 +33,16 @@ public class IndexUserServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         List<User> users = em.createNamedQuery("getAllUsers", User.class).getResultList();
+        request.getSession().setAttribute("need_login",true);
 
         em.close();
+
+        for(User u:users)
+        {
+            //パスワードの表示値を空文字にする
+            u.setPassword("");
+        }
+
 
         request.setAttribute("users", users);
 

@@ -16,6 +16,14 @@ import javax.persistence.Table;
     @NamedQuery(
         name = "getAllUsers",
         query = "SELECT u FROM User AS u WHERE u.del_flg=0 ORDER BY u.user_id ASC"
+    ),
+    @NamedQuery(
+            name = "loginQuely",
+            query = "SELECT u FROM User AS u WHERE u.del_flg=0 AND u.user_id=:id AND u.password=:password ORDER BY u.user_id ASC"
+    ),
+    @NamedQuery(
+            name = "selectName",
+            query = "SELECT u FROM User AS u WHERE u.del_flg=0 AND u.user_name=:name ORDER BY u.user_id ASC"
     )
 })
 @Table(name = "M_USER")
