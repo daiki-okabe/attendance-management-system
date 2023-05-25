@@ -14,7 +14,26 @@ public interface JpaConst {
         int FLG_FALSE = 0; //削除フラグOFF(現役)
         String PEPPER="qwerty";
 
+        //管理者のみのメニュー一覧
         static enum adminOnlyMenu{
-            m_user_index
+            m_user_index//ユーザーマスタ
+        }
+
+        //勤務状況
+        static enum work_class{
+            work,//出勤
+            rest,//有給
+            absence,//欠勤
+            suspension//休職
+        }
+
+        enum DayOfWeek  {
+            MONDAY,
+            TUESDAY,
+            WEDNESDAY,
+           THURSDAY,
+            FRIDAY,
+            SATURDAY,
+            SUNDAY;
         }
 }

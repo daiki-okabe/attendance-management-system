@@ -73,9 +73,11 @@ public class UserClassFilter implements Filter {
             else
             {
                 EntityManager em = DBUtil.createEntityManager();
-                List<User> users = em.createNamedQuery("selectName", User.class).setParameter("name",login_user).getResultList();
+                List<User> users = em.createNamedQuery("selectUser_UserName", User.class).setParameter("name",login_user).getResultList();
+                Integer login_user_role= users.get(0).getUser_role();
+                em.close();
 
-                if(users.get(0).getUser_role()==JpaConst.ROLE_ADMIN)
+                if(login_user_role==JpaConst.ROLE_ADMIN)
                 {
                     //次のフィルタまたはサーブレットを呼び出し
                     System.out.println("管理者である");

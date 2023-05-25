@@ -66,7 +66,8 @@ public class LoginServlet extends HttpServlet {
                {
                    System.out.println("ログイン成功");
                    request.getSession().setAttribute("login_user",users.get(0).getUser_name());
-                   response.sendRedirect(request.getContextPath() + "/m_user_index");
+                   request.getSession().setAttribute("login_user_id",users.get(0).getUser_id());
+                   response.sendRedirect(request.getContextPath() + "/main_menu");
                }
                else
                {

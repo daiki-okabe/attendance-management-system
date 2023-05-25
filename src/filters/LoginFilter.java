@@ -1,7 +1,9 @@
 package filters;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,6 +14,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import models.User;
+import utils.DBUtil;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
@@ -50,6 +55,7 @@ public class LoginFilter implements Filter {
 
             //セッションからログインしている従業員の情報を取得
             String login_user = (String) session.getAttribute("login_user");
+
             if (login_user == null ) {
                 //未ログイン
 
@@ -57,6 +63,20 @@ public class LoginFilter implements Filter {
                     //ログインページの表示またはログイン実行以外はログインページにリダイレクト
                     ((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/login");
                     return;
+            }
+            else
+            {
+
+
+                    //セッションにログインユーザーの権限をセット
+                    EntityManager em = DBUtil.createEntityManager();
+                    List<User> users = em.createNamedQuery("selectUser_UserName", User.class).setParameter("name",login_user).getResultList();
+                    Integer login_user_role= users.get(0).getUser_role();
+                    System.out.println(" login_user_role:" +login_user_role);
+                    session.setAttribute("login_user_role", login_user_role);
+                    em.close();
+
+
             }
         }
 

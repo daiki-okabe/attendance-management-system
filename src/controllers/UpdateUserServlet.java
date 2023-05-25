@@ -68,7 +68,7 @@ public class UpdateUserServlet extends HttpServlet {
                 current.setUser_role(user_role);
                 current.setUser_class(user_class);
                 LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得
-                currentTime.format(DateTimeFormatter.ofPattern("yyyy/-MM/dd HH:mm" ));
+                currentTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm" ));
                 current.setUpd_date(currentTime);
 
 

@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+a{
+  color:inherit;
+}
+
+h2{
+    font-size: 24px;
+}
+
+body {
+    color: #333333;
+    font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
+}
+
+#header {
+    width: 100%;
+    height: 70px;
+    background-color: #333333;
+}
+
+#content {
+    width: 94%;
+    margin-top: 15px;
+    padding-left: 3%;
+}
+
+#app_title{
+    font-size: 36px;
+    padding-top: 15px;
+    padding-left: 3%;
+    color: #eeeeee;
+    display: inline-block;
+}
+
+#view_menu{
+    font-size: 24px;
+    padding-left: 3%;
+    color: #eeeeee;
+    display: inline-block;
+}
+#login_user{
+    font-size: 16px;
+    color: #eeeeee;
+    padding-left: 850px;
+    display: inline-block;
+}
+#logout{
+    font-size: 20px;
+    color: #eeeeee;
+    padding-left: 1%;
+    display: inline-block;
+}
+
+#bold_border{
+    border: solid 2px;
+}
+#solid_border{
+    border: solid 1px;
+    text-align: center;
+}
+
+#editable_view{
+    border: solid 2px;
+    display: inline-block;
+}
+
+#create_data_form{
+    margin:40px;
+    border: solid 1px;
+    display: inline-block;
+    padding: 1%;
+}
+
+#master_maintenance{
+    width:100%;
+    display: flex;
+}
+#view_area{
+    width: 1700px;
+  height: 700px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#main_menu_clock{
+    display: flex;
+    justify-content: center;
+     font-size: 24px;
+     padding:1%;
+}
+
+#attendance_button{
+    width:120;
+    height:90;
+}
+
+.btn--orange,
+a.btn--orange {
+ font-size: 30px;
+  color: #fff;
+  background-color: #eb6100;
+  width:140px;
+  height:90px;
+  padding: 10px;
+  margin:6px;
+}
+.btn--orange:hover,
+a.btn--orange:hover {
+ font-size: 30px;
+  color: #fff;
+  background: #FFC593;
+  width:140px;
+  height:90px;
+  padding: 10px;
+  margin:6px;
+}
+.btn--blue,
+a.btn--blue {
+ font-size: 30px;
+  color: #fff;
+  background-color: #78B8FF;
+  width:140px;
+  height:90px;
+  padding: 10px;
+  margin:6px;
+}
+.btn--blue:hover,
+a.btn--blue:hover {
+ font-size: 30px;
+  color: #fff;
+  background: #9BD9FF;
+  width:140px;
+  height:90px;
+  padding: 10px;
+  margin:6px;
+}
+
+#main_menu_time_stump{
+    display: inline;
+    justify-content: center;
+    width:140;
+  padding-left: 16px;
+  padding-right: 20px;
+  margin:6px;
+}
+
+#mainmenu_edit_link{
+    display: flex;
+    justify-content: center;
+  color: #00f;
+}
+
+#label_timestump{
+    display: flex;
+    justify-content: center;
+ font-size: 30px;
+}

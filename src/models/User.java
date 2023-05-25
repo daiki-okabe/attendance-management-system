@@ -22,7 +22,7 @@ import javax.persistence.Table;
             query = "SELECT u FROM User AS u WHERE u.del_flg=0 AND u.user_id=:id AND u.password=:password ORDER BY u.user_id ASC"
     ),
     @NamedQuery(
-            name = "selectName",
+            name = "selectUser_UserName",
             query = "SELECT u FROM User AS u WHERE u.del_flg=0 AND u.user_name=:name ORDER BY u.user_id ASC"
     )
 })

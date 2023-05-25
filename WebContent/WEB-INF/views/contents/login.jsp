@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-    <div >
+    <div id="view_area">
     <form method="POST" action="${pageContext.request.contextPath}/login">
         <label for="USER_ID">ユーザーID</label> <input type="text" name="user_id" id="USER_ID" />
         <br /><br />
