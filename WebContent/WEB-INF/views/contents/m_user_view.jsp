@@ -3,7 +3,10 @@
 <c:import url="../layout/app.jsp">
     <c:param name="content">
 
-        <h2>ユーザー一覧</h2>
+        <div id="view_area">
+        <div id="top">
+            <h2 >ユーザー一覧</h2>
+        </div>
         <div id="master_maintenance">
             <table id="editable_view">
                <tr>
@@ -49,11 +52,11 @@
         }
         </script>
 
-   
+
 
     <div id="create_data_form">
     <form method="POST" action="${pageContext.request.contextPath}/m_user_create">
-        <label for="USER_NAME">ユーザー名　</label> <input type="text" name="user_name" id="USER_NAME" />
+        <label for="USER_NAME"  id="create_data_form_header">ユーザー名</label> <input type="text" name="user_name" id="USER_NAME" />
         <br /><br />
 
         <label for="DEPT_ID">所属部署ID　</label> <input type="text" name="dept_id" id="DEPT_ID" />
@@ -74,6 +77,7 @@
         <button type="submit">新規データとして登録</button>
         </form>
     </div>
+     </div>
      </div>
     </c:param>
 </c:import>

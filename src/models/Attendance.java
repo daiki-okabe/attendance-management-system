@@ -25,6 +25,10 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "selectAttendance_Today",
             query = "SELECT a FROM Attendance AS a WHERE a.del_flg=0 AND a.user_id=:id AND a.date=:date ORDER BY a.user_id ASC"
+    ),
+    @NamedQuery(
+            name = "selectAttendance_MonthStats",
+            query = "SELECT a FROM Attendance AS a WHERE a.del_flg=0 AND a.user_id=:id AND a.date>=:start_date AND a.date<=:end_date ORDER BY a.user_id ASC"
     )
 })
 //勤怠トラン

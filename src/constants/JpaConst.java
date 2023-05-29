@@ -36,4 +36,19 @@ public interface JpaConst {
             SATURDAY,
             SUNDAY;
         }
+
+        final int DAY=24;
+        final int HOUR=60;
+        final int MINUTE=60;
+        final int SECONDS=60;
+
+        final int DEFAULT_WORK_HOUR_STATS=160;
+        final int DEFAULT_WORK_HOUR=8;
+        final int DEFAULT_WORK_REST=1;
+
+        final String NEXT=">";
+        final String UNDO="<";
+        final String INPUT="登録";
+        final String UPDATE="更新";
+        final String DELETE="削除";
 }

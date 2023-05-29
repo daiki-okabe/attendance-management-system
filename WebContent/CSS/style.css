@@ -61,6 +61,7 @@ body {
 }
 
 #editable_view{
+    margin:40px;
     border: solid 2px;
     display: inline-block;
 }
@@ -68,7 +69,8 @@ body {
 #create_data_form{
     margin:40px;
     border: solid 1px;
-    display: inline-block;
+    display: flex;
+    float:left;
     padding: 1%;
 }
 
@@ -79,10 +81,6 @@ body {
 #view_area{
     width: 1700px;
   height: 700px;
-    display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 #main_menu_clock{
@@ -138,13 +136,28 @@ a.btn--blue:hover {
   margin:6px;
 }
 
+.btn--green,
+a.btn--green {
+ font-size: 20px;
+  color: #fff;
+  background-color: #80E583;
+  width:100px;
+  height:30px;
+}
+.btn--green:hover,
+a.btn--green:hover {
+  color: #fff;
+  background: #BAE5BD;
+  width:100px;
+  height:30px;
+}
+
 #main_menu_time_stump{
-    display: inline;
-    justify-content: center;
-    width:140;
-  padding-left: 16px;
-  padding-right: 20px;
-  margin:6px;
+    width:130px;
+    height:20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align:center;
 }
 
 #mainmenu_edit_link{
@@ -157,4 +170,137 @@ a.btn--blue:hover {
     display: flex;
     justify-content: center;
  font-size: 30px;
+}
+
+#top {
+    width: 100%;
+    height: 10%;
+    background-color: #FFFFC6;
+    margin:20px;
+    padding:20px;
+}
+
+#main {
+    width: 100%;
+    height: 80%;
+}
+
+#atendance_parts{
+    border: solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100%;
+}
+#header_arrow{
+    float: left;
+    border: solid 1px;
+    height:22px;
+    width:20px;
+    text-align: center;
+}
+#header_date{
+    float: left;
+    width :140px;
+    height:20px;
+    text-align: center;
+}
+#header_section{
+    margin-top:3px;
+    display: block;
+    width :200px;
+    height:20px;
+    font-size: 15px;
+}
+#header_id{
+    margin-top:8px;
+    display: flex;
+    float:left;
+    width :90px;
+    height:20px;
+    text-align: center;
+    font-size: 20px;
+}
+#header_name{
+    margin-top:10px;
+    display: flex;
+    float:left;
+    width :200px;
+    height:20px;
+    text-align: left;
+     font-size: 25px;
+     justify-content: flex-start;
+     align-items: center;
+}
+
+#calendar{
+    margin:40px;
+    margin-right:80px;
+    border: solid 1px;
+    display: flex;
+    float:left;
+    padding: 1%;
+}
+
+#stats{
+    display: flex;
+    float:left;
+
+    margin:40px;
+    margin-left:80px;
+    border: solid 1px;
+    padding: 1%;
+    width:320px;
+    height:360px;
+}
+
+#form_header{
+    display: flex;
+    float:left;
+    width :100px;
+    height:25px;
+    text-align: center;
+     padding: 10px;
+}
+#form_input{
+    display: flex;
+    float:left;
+    height:25px;
+    text-align: center;
+     justify-content: center;
+     padding: 10px;
+}
+
+#stats_wrap{
+     display:flex;
+  flex-flow: column;
+}
+#stats_header{
+    padding: 6px;
+    font-size:25px;
+    height:30px;
+    width:280px;
+}
+#stats_table{
+     padding: 10px;
+     width:280px;
+    height:250px;
+}
+
+#stats_view_header{
+    display: flex;
+    float:left;
+    width :160px;
+    height:25px;
+    text-align: center;
+    padding: 10px;
+}
+#stats_view_output{
+    display: flex;
+    float:left;
+    height:25px;
+    text-align: center;
+     justify-content: center;
+     padding: 10px;
 }
