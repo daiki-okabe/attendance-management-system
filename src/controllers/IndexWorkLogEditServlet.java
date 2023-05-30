@@ -101,11 +101,9 @@ public class IndexWorkLogEditServlet extends HttpServlet {
 
 
          String user_name = null;
-         Integer dept_id=null;
          if(users.size()>0)
          {
              user_name= users.get(0).getUser_name();
-             dept_id= users.get(0).getDept_id();
          }
 
          int worked_holiday_count=0;
@@ -121,7 +119,7 @@ public class IndexWorkLogEditServlet extends HttpServlet {
          for(Attendance buf:attendances_month)
          {
 
-             if(buf.getWork_class()==JpaConst.work_class.rest.ordinal())
+             if(buf.getWork_class()==JpaConst.work_class.rest.ordinal()+1)
              {
                  used_holiday_count++;
              }
@@ -183,6 +181,31 @@ public class IndexWorkLogEditServlet extends HttpServlet {
              if(attendances.get(0).getEnd_date()!=null)
              {
                  request.setAttribute("end_date", attendances.get(0).getEnd_date().format(DateTimeFormatter.ofPattern("HH:mm" )));
+             }
+
+             if(attendances.get(0).getWork_class()!=null)
+             {
+                 if(attendances.get(0).getWork_class() == JpaConst.work_class.work.ordinal()+1)//0始まりのため
+                 {
+                     request.setAttribute("work_class", "出勤");
+                 }
+
+                 if(attendances.get(0).getWork_class() == JpaConst.work_class.rest.ordinal()+1)
+                 {
+                     request.setAttribute("work_class", "有給休暇");
+                 }
+
+                 if(attendances.get(0).getWork_class() == JpaConst.work_class.absence.ordinal()+1)
+                 {
+                     request.setAttribute("work_class", "欠勤");
+                 }
+
+                 if(attendances.get(0).getWork_class() == JpaConst.work_class.suspension.ordinal()+1)
+                 {
+                     request.setAttribute("work_class", "休職");
+                 }
+
+
              }
          }
 
@@ -254,23 +277,28 @@ public class IndexWorkLogEditServlet extends HttpServlet {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
             LocalDateTime end_date=null;
-            if(request.getParameter("end_date")!=null)
+            if(!request.getParameter("end_date").isBlank())
             {
+                System.out.println("end_date:"+request.getParameter("end_date"));
                 end_date= LocalDateTime.parse((CurrentDate + " " + request.getParameter("end_date").toString()),dtf);
                 System.out.println(end_date);
             }
             LocalDateTime start_date=null;
-            if(request.getParameter("start_date") != null)
+            if(!request.getParameter("start_date").isBlank())
             {
+                System.out.println("start_date"+request.getParameter("start_date"));
                 start_date= LocalDateTime.parse((CurrentDate + " " + request.getParameter("start_date").toString()),dtf);
 
-                if(start_date.isAfter(end_date))//開始時間が終了時間より後だったら、前日の夜から勤務したと見做す
+                if(!request.getParameter("end_date").isBlank())
                 {
-                    start_date= LocalDateTime.parse((CurrentDate.minusDays(1) + " " + request.getParameter("start_date").toString()),dtf);
+                    if(start_date.isAfter(end_date))//開始時間が終了時間より後だったら、前日の夜から勤務したと見做す
+                    {
+                        start_date= LocalDateTime.parse((CurrentDate.minusDays(1) + " " + request.getParameter("start_date").toString()),dtf);
+                    }
                 }
-
                 System.out.println(start_date);
             }
+            request.getSession().setAttribute("work_type",request.getParameter("work_type"));
             request.getSession().setAttribute("start_date",start_date);
             request.getSession().setAttribute("end_date",end_date);
             request.getSession().setAttribute("today",CurrentDate);

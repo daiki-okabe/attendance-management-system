@@ -28,7 +28,7 @@
                     <div id="view_menu">
                         <a href="<c:url value='/work_log_edit'/>">勤務実績</a>
                             <c:if test="${login_user_role == 1}">
-                                <a href="<c:url value='/m_user_index' />">マスタメンテ</a>
+                                <a href="<c:url value='/master_mentenance_list' />">マスタメンテ</a>
                             </c:if>
                     </div>
                     <div id="login_user">

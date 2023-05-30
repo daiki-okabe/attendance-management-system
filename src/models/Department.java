@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
         name = "getAllDepartment",
-        query = "SELECT d FROM Department AS d WHERE d.del_flg=0 ORDER BY d.department_id ASC"
+        query = "SELECT d FROM Department AS d WHERE d.del_flg=0 ORDER BY d.division_id ASC"
     ),
     @NamedQuery(
             name = "getDepartment_deptId",
@@ -25,8 +25,11 @@ import javax.persistence.Table;
 @Table(name = "M_DEPARTMENT")
 public class Department {
     @Id
-    @Column(name = "DEPARTMENT_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "DEPARTMENT_ID")
     private Integer department_id;
 
     @Column(name = "DEPARTMENT_NAME", length = 200, nullable = false)
@@ -112,6 +115,14 @@ public class Department {
 
     public void setDepartment_name(String department_name) {
         this.department_name = department_name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 

@@ -13,7 +13,7 @@
                     <th >
                          <table>
                              <tr >
-                                 <th style="width:30px"id="solid_border">ID</th>
+                                 <th style="width:50px"id="solid_border">ID</th>
                                  <th style="width:123px"id="solid_border"> ユーザー名<th>
                                  <th style="width:99px"id="solid_border">所属部署ID</th>
                                  <th style="width:83px"id="solid_border">権限</th>
@@ -31,7 +31,7 @@
                         <form method="POST" action="${pageContext.request.contextPath}/m_user_upd_del?id=${users.user_id}">
                             <table>
                              <tr>
-                                 <th style="width:30px" id="solid_border"><label  for="USER_ID">${users.user_id}　</label> <input type="hidden" name="user_id" id="USER_ID"  value="${users.user_id}" /></th>
+                                 <th style="width:50px" id="solid_border"><label  for="USER_ID">${users.user_id}　</label> <input type="hidden" name="user_id" id="USER_ID"  value="${users.user_id}" /></th>
                                  <th style="width:80px"><input type="text" name="user_name" id="USER_NAME"   value="${users.user_name}" style="width:120px"/></th>
                                  <th style="width:96px"><input type="text" name="dept_id" id="DEPT_ID"  value="${users.dept_id}" style="width:96px"/></th>
                                  <th style="width:80px"><input type="text" name="user_role" id="USER_ROLE" value="${users.user_role}" style="width:80px"/></th>
@@ -55,27 +55,60 @@
 
 
     <div id="create_data_form">
-    <form method="POST" action="${pageContext.request.contextPath}/m_user_create">
-        <label for="USER_NAME"  id="create_data_form_header">ユーザー名</label> <input type="text" name="user_name" id="USER_NAME" />
-        <br /><br />
-
-        <label for="DEPT_ID">所属部署ID　</label> <input type="text" name="dept_id" id="DEPT_ID" />
-        <br /><br />
-
-        <label for="USER_ROLE" >権限　　　　</label>       	一般:<input type="radio" name="user_role" value="0">
-                                                                                        管理者:<input type="radio" name="user_role" value="1">
-        <br /><br />
-
-        <label for="USER_CLASS">ユーザー区分</label> 	社員:<input type="radio" name="user_class" value="1">
-                                                                                                    契約社員:<input type="radio" name="user_class" value="2">
-                                                                                                    協力会社社員:<input type="radio" name="user_class" value="3">
-        <br /><br />
-
-        <label for="PASSWORD">パスワード　</label> <input type="text" name="password" id="PASSWORD" />
-        <br /><br />
-
-        <button type="submit">新規データとして登録</button>
+        <form method="POST" action="${pageContext.request.contextPath}/m_user_create">
+            <table>
+                <tr>
+                    <td>
+                        <label for="USER_NAME"  id="form_header">ユーザー名</label>
+                    </td>
+                    <td>
+                         <input type="text" name="user_name" id="USER_NAME" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="DEPT_ID" id="form_header">所属部署ID</label>
+                    </td>
+                    <td>
+                        <input type="text" name="dept_id" id="DEPT_ID" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="USER_ROLE"  id="form_header">権限</label>
+                    </td>
+                    <td>
+                        一般:<input type="radio" name="user_role" value="0">
+                        管理者:<input type="radio" name="user_role" value="1">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="USER_CLASS" id="form_header">ユーザー区分</label>
+                    </td>
+                    <td>
+                        社員:<input type="radio" name="user_class" value="1">
+                        契約社員:<input type="radio" name="user_class" value="2">
+                        協力会社社員:<input type="radio" name="user_class" value="3">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="PASSWORD" id="form_header">パスワード</label>
+                    </td>
+                    <td>
+                        <input type="text" name="password" id="PASSWORD" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">新規データとして登録</button>
+                    </td>
+                </tr>
+            </table>
         </form>
+
+
     </div>
      </div>
      </div>

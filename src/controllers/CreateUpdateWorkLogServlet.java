@@ -46,6 +46,7 @@ public class CreateUpdateWorkLogServlet extends HttpServlet {
         Integer login_user_id = (Integer)session.getAttribute("login_user_id");
         EntityManager em = DBUtil.createEntityManager();
 
+        Integer work_class = null;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime  currentTime = LocalDateTime.parse( LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss" )),dtf);
         LocalDateTime start_date= (LocalDateTime)( request.getSession().getAttribute("start_date"));
@@ -66,6 +67,17 @@ public class CreateUpdateWorkLogServlet extends HttpServlet {
             System.out.println("更新");
 
             pull_request= em.find(Attendance.class,attendances.get(0).getAttendance_id() );
+
+            if(request.getSession().getAttribute("work_type")!=null)
+            {
+                work_class=Integer.parseInt( request.getSession().getAttribute("work_type").toString());
+            }
+
+            if(work_class!=null) {
+                pull_request.setWork_class(work_class);
+                pull_request.setUpd_date(currentTime);
+                pull_request.setUpd_user(login_user_id.toString());
+            }
 
             if(start_date!=null) {
                 pull_request.setStart_date(start_date);

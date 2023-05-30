@@ -44,6 +44,9 @@
                 <div id="create_data_form">
                     <form method="POST" action="${pageContext.request.contextPath}/work_log_edit">
                         <table>
+                            <tr>
+                                <td id="stats_header">勤怠データ編集</td>
+                            </tr>
                              <tr>
                                  <td>
                                      <div id="form_header">
@@ -51,6 +54,7 @@
                                     </div>
                                      <div id="form_input">
                                      <select name="work_type"  id="work_type_list">
+                                         <option value=""  disabled selected>${work_class}</option>
                                         <option value="1">出勤</option>
                                         <option value="2">有給休暇</option>
                                         <option value="3">欠勤</option>

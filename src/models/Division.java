@@ -25,8 +25,11 @@ import javax.persistence.Table;
 @Table(name = "M_DIVIDION")
 public class Division {
     @Id
-    @Column(name = "DIVIDION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
+
+    @Column(name = "DIVIDION_ID")
     private Integer division_id;
 
     @Column(name = "DIVIDION_NAME", length = 200, nullable = false)
@@ -101,6 +104,14 @@ public class Division {
 
     public void setDel_flg(Integer del_flg) {
         this.del_flg = del_flg;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 
