@@ -27,6 +27,13 @@ public interface JpaConst {
             suspension//休職
         }
 
+
+        static  enum requestState{
+            CREATE,
+            APPLOVAL,
+            VIEW
+        }
+
         enum DayOfWeek  {
             MONDAY,
             TUESDAY,
@@ -36,6 +43,8 @@ public interface JpaConst {
             SATURDAY,
             SUNDAY;
         }
+
+        final int PAPER_ID_REST=100;
 
         final int DAY=24;
         final int HOUR=60;
@@ -52,3 +61,4 @@ public interface JpaConst {
         final String UPDATE="更新";
         final String DELETE="削除";
 }
+

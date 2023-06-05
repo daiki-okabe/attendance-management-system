@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% String login_user = (String)request.getSession().getAttribute("login_user"); %>
 <% Integer login_user_role = (Integer)request.getSession().getAttribute("login_user_role"); %>
 
@@ -14,31 +15,35 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <div id="header_menu">
-                <div id="app_title">
-                <c:if test="${login_user == null}">
-                    <a>勤怠管理システム</a>
-                </c:if>
-                <c:if test="${login_user != null}">
-                    <a href="<c:url value='/main_menu' />">勤怠管理システム</a>
-                </c:if>
-                </div>
+                <div id="header_left">
 
-                <c:if test="${login_user != null}">
-                    <div id="view_menu">
-                        <a href="<c:url value='/work_log_edit'/>">勤務実績</a>
-                            <c:if test="${login_user_role == 1}">
-                                <a href="<c:url value='/master_mentenance_list' />">マスタメンテ</a>
-                            </c:if>
-                    </div>
-                    <div id="login_user">
-                        ログインユーザー：<c:out value="${login_user}" />
-                    </div>
-                    <div id="logout">
-                        <a href="<c:url value='/logout' />">ログアウト</a>
-                    </div>
-               </c:if>
-            </div>
+<p id="app_title">
+                        <c:if test="${login_user == null}">
+                            <a>勤怠管理システム</a>
+                        </c:if>
+                        <c:if test="${login_user != null}">
+                            <a href="<c:url value='/main_menu' />">勤怠管理システム</a>
+                        </c:if>
+                    </p>
+
+                    <c:if test="${login_user != null}">
+                        <p id="view_menu">
+                            <a href="<c:url value='/work_log_edit'/>">勤務実績</a>
+                            <a href="<c:url value='/req_paper_list'/>">各種申請</a>
+                                <c:if test="${login_user_role == 1}">
+                                    <a href="<c:url value='/master_mentenance_list' />">マスタメンテ</a>
+                                </c:if>
+                           </p>
+                   </c:if>
+               </div>
+
+
+                <p id="header_right">
+                    <c:if test="${login_user != null}">
+                        <a id="login_user">ログインユーザー：<c:out value="${login_user}" /></a>
+                        <a id="logout" href="<c:url value='/logout' />">ログアウト</a>
+                   </c:if>
+                </p>
         </div>
         <div id="content">${param.content}</div>
         <div id="footer">by Okabe.</div>
