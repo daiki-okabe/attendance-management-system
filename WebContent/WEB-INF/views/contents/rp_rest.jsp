@@ -54,19 +54,8 @@
                         </div>
                     </form>
                 </c:if>
-                <c:if test="${user_type==1 }">
-                    <form method="POST" action="${pageContext.request.contextPath}/rp_rest_create">
-                        <div id="request_form_footer">
-                             <div id="request_form_label">差戻事由</div>
-                             <textarea  name="return_reason" class="request_form_text_large"  maxlength="200"></textarea>
 
-                             <div id="request_br"></div>
-                             <input type="submit"  value="承認" class="btn--black--small"></input>
-                             <input type="submit"  value="差戻" class="btn--black--small"></input>
-                        </div>
-                    </form>
-                </c:if>
-                <c:if test="${user_type==2 }">
+                <c:if test="${user_type==1or user_type==2 }">
                     <div id="request_form_header">
                         <div id="request_form_label">申請者ID</div> <input type="text"  disabled id="request_form_text"  class="text_id" value = "${user_id}" ></input>
                         <div id="request_form_label">申請者名</div> <input type="text" disabled  id="request_form_text" value = "${user_name}" ></input>
@@ -108,7 +97,6 @@
                          </script>
 
                          <div id="request_br"></div>
-
                          <div id="request_br"></div>
                          <div id="request_br"></div>
                          <div id="request_br"></div>
@@ -122,13 +110,32 @@
                          <div id="request_br"></div>
                          <div id="request_br"></div>
                       </div>
-                      <div id="request_form_footer">
-                          <c:if test="${redo_flg==true}">
-                               <div id="request_form_label">差戻事由</div>
-                               <textarea  name="return_reason"  disabled class="request_form_text_large"  maxlength="200"></textarea>
-                          </c:if>
-                    </div>
+
+
+                      <form method="POST" action="${pageContext.request.contextPath}/rp_rest_update">
+                          <div id="request_form_footer">
+                                  <c:if test="${user_type==1}">
+                                     <div id="request_form_label">差戻事由</div>
+                                         <textarea  name="return_reason" class="request_form_text_large"  maxlength="200"></textarea>
+                                  </c:if>
+                                  <c:if test="${user_type==2 and redo_flg==1}">
+                                     <div id="request_form_label">差戻事由</div>
+                                         <textarea  name="return_reason" disabled class="request_form_text_large"  maxlength="200">${return_reason}</textarea>
+                                         <script>
+                                              document.getElementById('return_reason').value = "${return_reason}";
+                                          </script>
+                                  </c:if>
+                                  <c:if test="${user_type==1}">
+                                     <div id="request_br"></div>
+                                     <input type="hidden" name="request_id" value="${request_id}" ></input>
+                                     <input type="submit" name="approval_type"  value="承認" class="btn--black--small"></input>
+                                     <input type="submit" name="approval_type"  value="差戻" class="btn--black--small"></input>
+                                  </c:if>
+                          </div>
+                      </form>
+
                 </c:if>
+
             </div>
         </div>
     </c:param>

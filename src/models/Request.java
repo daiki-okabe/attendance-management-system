@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,13 +18,16 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "selectRequest_UserId",
             query = "SELECT r FROM Request AS r WHERE r.del_flg=0 AND r.user_id=:id ORDER BY r.paper_id ASC"
+    ),
+    @NamedQuery(
+            name = "selectRequest_RequestId",
+            query = "SELECT r FROM Request AS r WHERE r.del_flg=0 AND r.request_id=:id ORDER BY r.paper_id ASC"
     )
 })
 @Table(name = "T_REQUEST")
 public class Request {
     @Id
     @Column(name = "REQUEST_ID", length = 10)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer request_id;
 
     @Column(name = "USER_ID", length = 10, nullable = false)

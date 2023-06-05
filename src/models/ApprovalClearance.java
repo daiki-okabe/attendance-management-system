@@ -15,11 +15,11 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
         name = "getAllApprovalClearance",
-        query = "SELECT u FROM User AS u WHERE u.del_flg=0 ORDER BY u.user_id ASC"
+        query = "SELECT a FROM ApprovalClearance AS a WHERE a.del_flg=0 ORDER BY a.paper_id ASC"
     ),
     @NamedQuery(
             name = "selectClearance_PaperIdAndProgress",
-            query = "SELECT u FROM User AS u WHERE u.del_flg=0 AND u.user_id=:id ORDER BY u.user_id ASC"
+            query = "SELECT a FROM ApprovalClearance AS a WHERE a.del_flg=0 AND a.paper_id=:id AND a.progress=:progress ORDER BY a.paper_id ASC"
     )
 })
 @Table(name = "M_APPROVAL_CLEARANCE")

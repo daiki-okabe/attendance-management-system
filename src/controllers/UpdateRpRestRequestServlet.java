@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import constants.JpaConst;
+import models.ApprovalClearance;
 import models.Request;
 import models.Request_Rest;
 import utils.DBUtil;
@@ -22,14 +22,14 @@ import utils.DBUtil;
 /**
  * Servlet implementation class CreateRpRestRequestServlet
  */
-@WebServlet("/rp_rest_create")
-public class CreateRpRestRequestServlet extends HttpServlet {
+@WebServlet("/rp_rest_update")
+public class UpdateRpRestRequestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateRpRestRequestServlet() {
+    public UpdateRpRestRequestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,40 +48,22 @@ public class CreateRpRestRequestServlet extends HttpServlet {
 
          HttpSession session = ((HttpServletRequest) request).getSession();
          String login_user_name = session.getAttribute("login_user").toString();
+         Integer login_user = (Integer)session.getAttribute("login_user_id");
          EntityManager em = DBUtil.createEntityManager();
          em.getTransaction().begin();
 
-         Request_Rest rr = new Request_Rest();
+         Integer request_id=Integer.parseInt(request.getParameter("request_id"));
 
-         Integer user_id=Integer.parseInt(request.getParameter("user_id"));
-         rr.setUser_id(user_id);
-         System.out.println(user_id);
+         String approval_type= request.getParameter("approval_type");
 
-         List<Request_Rest> data = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_UserId",Request_Rest.class).setParameter("id",user_id).getResultList();
-         Integer request_id=Integer.parseInt((user_id+ String.format("%04d", data.size())));
+         List<Request_Rest> data = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_RequestId",Request_Rest.class).setParameter("id",request_id).getResultList();
+         Request_Rest rr = data.get(0);
+
          rr.setRequest_id(request_id);
-         rr.setRequest_rest_id(request_id);
 
-         String user_name = request.getParameter("user_name");
-         rr.setUser_name(user_name);
-         System.out.println(user_name);
-
-         LocalDate from_date =LocalDate.parse( request.getParameter("from"));
-         from_date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd" ));
-         rr.setFrom_date(from_date);
-         System.out.println(from_date);
-
-         LocalDate to_date =LocalDate.parse( request.getParameter("to"));
-         to_date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd" ));
-         rr.setTo_date(to_date);
-         System.out.println(to_date);
-
-         Integer rest_class=Integer.parseInt(request.getParameter("rest_class"));
-         rr.setRest_class(rest_class);
-
-         String comment = request.getParameter("comment");
-         rr.setComment(comment);
-         System.out.println(comment);
+         String return_reason= request.getParameter("return_reason");
+         rr.setReturn_reason(return_reason);
+         System.out.println(return_reason);
 
          Integer del_flg=JpaConst.FLG_FALSE;
          rr.setDel_flg(del_flg);
@@ -97,20 +79,34 @@ public class CreateRpRestRequestServlet extends HttpServlet {
          // データベースに保存
          em.persist(rr);
 
-         request.getSession().setAttribute("edited_data_id", rr.getRequest_rest_id());
+         request.getSession().setAttribute("edited_data_id", request_id);
 
          session.setAttribute("request_id", request_id);
-         session.setAttribute("user_id",user_id);
+         session.setAttribute("user_id",login_user);
          session.setAttribute("last_page", "/rp_rest_create");
 
-         Request r=new Request();
+         Request r=(Request) em.createNamedQuery("selectRequest_RequestId",Request.class).setParameter("id",request_id).getResultList().get(0);
 
          r.setRequest_id(request_id);
-         r.setUser_id(user_id);
+         r.setUser_id(login_user);
          r.setPaper_id(JpaConst.PAPER_ID_REST);
-         r.setProgress(JpaConst.FLG_FALSE);
-         r.setAgain_flg(JpaConst.FLG_FALSE);
-         r.setOk_flg(JpaConst.FLG_FALSE);
+
+         if(approval_type.equals("承認")) {
+             r.setAgain_flg(JpaConst.FLG_FALSE);
+             r.setProgress( r.getProgress()+1);
+
+             if(em.createNamedQuery("selectClearance_PaperIdAndProgress",ApprovalClearance.class).setParameter("id",request_id).setParameter("progress",r.getProgress()).getResultList().size()==0){
+                 r.setOk_flg(JpaConst.FLG_TRUE);
+             }
+             else{
+                 r.setOk_flg(JpaConst.FLG_FALSE);
+             }
+         }
+         else {
+             r.setAgain_flg(JpaConst.FLG_TRUE);
+             r.setProgress(JpaConst.FLG_FALSE);
+         }
+
          r.setInp_date(currentTime);
          r.setInp_user(login_user_name);
          r.setUpd_date(currentTime);
@@ -120,7 +116,6 @@ public class CreateRpRestRequestServlet extends HttpServlet {
          em.merge(r);
          em.getTransaction().commit();
          em.close();
-
 
          response.sendRedirect(request.getContextPath() + "/rp_rest_index");
     }
