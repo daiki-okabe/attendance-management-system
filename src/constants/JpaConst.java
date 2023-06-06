@@ -8,8 +8,9 @@ public interface JpaConst {
         //データ取得件数の最大値
         int ROW_LIMIT = 15; //1ページに表示するレコードの数
 
-        int ROLE_ADMIN = 1; //管理者権限ON(管理者)
+        int ROLE_ADMIN = 2; //管理者権限ON(管理者)
         int ROLE_GENERAL = 0; //管理者権限OFF(一般)
+        int ROLE_GENERAL_ADMIN = 1; //管理者権限OFF(一般)
         int FLG_TRUE = 1; //削除フラグON(削除済み)
         int FLG_FALSE = 0; //削除フラグOFF(現役)
         String PEPPER="qwerty";
@@ -17,6 +18,14 @@ public interface JpaConst {
         //管理者のみのメニュー一覧
         static enum adminOnlyMenu{
             m_user_index//ユーザーマスタ
+        }
+
+      //ユーザーの職級
+        static enum user_rank{
+            general,//一般
+            cheaf,//課長
+            head,//部長
+            officer//役員
         }
 
         //勤務状況

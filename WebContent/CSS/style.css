@@ -440,11 +440,11 @@ a.btn--blue--small:hover {
 #request_form_list_wrap{
     display:flex;
     float:left;
-    width:350px;
+    width:330px;
     min-height: 600px;
     justify-content: center;
     align-items: flex-start;
-    margin:6%;
+    margin:2%;
 }
 
 #request_form_list{

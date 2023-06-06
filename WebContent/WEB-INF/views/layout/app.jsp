@@ -30,7 +30,7 @@
                         <p id="view_menu">
                             <a href="<c:url value='/work_log_edit'/>">勤務実績</a>
                             <a href="<c:url value='/req_paper_list'/>">各種申請</a>
-                                <c:if test="${login_user_role == 1}">
+                                <c:if test="${login_user_role == 2}">
                                     <a href="<c:url value='/master_mentenance_list' />">マスタメンテ</a>
                                 </c:if>
                            </p>

@@ -44,15 +44,24 @@ public class UpdateUserServlet extends HttpServlet {
 
         Integer id=(Integer)(request.getAttribute("id")) ;
         System.out.println("id:"+id);
-            User current = em.find(User.class,id );
+        User current = em.find(User.class,id );
+        Integer login_user_id=(Integer)(request.getSession().getAttribute("login_user_id"));
 
             if( !request.getParameter("user_name").isBlank() &&
                     !StringCheck.IsBlankOrNotNumelic(request.getParameter("dept_id")) &&
                         !StringCheck.IsBlankOrNotNumelic(request.getParameter("user_role"))&&
-                            !StringCheck.IsBlankOrNotNumelic(request.getParameter("user_class")))
+                            !StringCheck.IsBlankOrNotNumelic(request.getParameter("user_rank"))&&
+                                !StringCheck.IsBlankOrNotNumelic(request.getParameter("user_class")))
             {
                 String user_name=request.getParameter("user_name");
+
+                if(id.equals(login_user_id))
+                {
+                    request.getSession().setAttribute("login_user",user_name);
+                }
+
                 Integer dept_id=Integer.parseInt(request.getParameter("dept_id"));
+                Integer user_rank=Integer.parseInt(request.getParameter("user_rank"));
                 Integer user_role=Integer.parseInt(request.getParameter("user_role"));
                 Integer user_class= Integer.parseInt(request.getParameter("user_class"));
                 if(!request.getParameter("password").isBlank())
@@ -65,6 +74,7 @@ public class UpdateUserServlet extends HttpServlet {
 
                 current.setUser_name(user_name);
                 current.setDept_id(dept_id);
+                current.setUser_rank(user_rank);
                 current.setUser_role(user_role);
                 current.setUser_class(user_class);
                 LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得

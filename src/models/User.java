@@ -43,6 +43,9 @@ public class User {
     @Column(name = "DEPT_ID", nullable = false)
     private Integer dept_id;
 
+    @Column(name = "USER_RANK", nullable = false)
+    private Integer user_rank;
+
     @Column(name = "USER_ROLE", nullable = false)
     private Integer user_role;
 
@@ -153,5 +156,13 @@ public class User {
 
     public void setDel_flg(Integer del_flg) {
         this.del_flg = del_flg;
+    }
+
+    public Integer getUser_rank() {
+        return user_rank;
+    }
+
+    public void setUser_rank(Integer user_rank) {
+        this.user_rank = user_rank;
     }
 }

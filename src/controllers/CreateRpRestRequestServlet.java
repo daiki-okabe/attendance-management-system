@@ -53,18 +53,29 @@ public class CreateRpRestRequestServlet extends HttpServlet {
 
          Request_Rest rr = new Request_Rest();
 
+         if(request.getParameter("user_id").toString().isBlank()||request.getParameter("user_name").toString().isBlank()||
+                 request.getParameter("from").toString().isBlank()||request.getParameter("to").toString().isBlank()||
+                 request.getParameter("rest_class").toString().isBlank()||request.getParameter("comment").toString().isBlank())
+         {
+             request.getSession().setAttribute("last_page","/req_paper_list");
+             response.sendRedirect(request.getContextPath() + "/rp_rest_index");
+             return;
+         }
+
          Integer user_id=Integer.parseInt(request.getParameter("user_id"));
+         List<Request_Rest> data = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_UserId",Request_Rest.class).setParameter("id",user_id).getResultList();
+         Integer request_id=Integer.parseInt((user_id+ String.format("%04d", data.size())));
+
          rr.setUser_id(user_id);
          System.out.println(user_id);
 
-         List<Request_Rest> data = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_UserId",Request_Rest.class).setParameter("id",user_id).getResultList();
-         Integer request_id=Integer.parseInt((user_id+ String.format("%04d", data.size())));
+         String user_name = request.getParameter("user_name");
          rr.setRequest_id(request_id);
          rr.setRequest_rest_id(request_id);
 
-         String user_name = request.getParameter("user_name");
          rr.setUser_name(user_name);
          System.out.println(user_name);
+
 
          LocalDate from_date =LocalDate.parse( request.getParameter("from"));
          from_date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd" ));

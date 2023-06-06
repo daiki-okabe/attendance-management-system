@@ -16,6 +16,7 @@
                                  <th style="width:50px"id="solid_border">ID</th>
                                  <th style="width:123px"id="solid_border"> ユーザー名<th>
                                  <th style="width:99px"id="solid_border">所属部署ID</th>
+                                 <th style="width:83px"id="solid_border">職級</th>
                                  <th style="width:83px"id="solid_border">権限</th>
                                  <th style="width:98px"id="solid_border">ユーザー区分</th>
                                  <th style="width:123px"id="solid_border">パスワード</th>
@@ -34,6 +35,7 @@
                                  <th style="width:50px" id="solid_border"><label  for="USER_ID">${users.user_id}　</label> <input type="hidden" name="user_id" id="USER_ID"  value="${users.user_id}" /></th>
                                  <th style="width:80px"><input type="text" name="user_name" id="USER_NAME"   value="${users.user_name}" style="width:120px"/></th>
                                  <th style="width:96px"><input type="text" name="dept_id" id="DEPT_ID"  value="${users.dept_id}" style="width:96px"/></th>
+                                 <th style="width:80px"><input type="text" name="user_rank" id="USER_RANK" value="${users.user_rank}" style="width:80px"/></th>
                                  <th style="width:80px"><input type="text" name="user_role" id="USER_ROLE" value="${users.user_role}" style="width:80px"/></th>
                                  <th style="width:96px"><input type="text" name="user_class" id="USER_CLASS"  value="${users.user_class}" style="width:96px"/></th>
                                  <th style="width:120px"><input type="text" name="password" id="PASSWORD"  value="${users.password}" style="width:120px"/></th>
@@ -72,6 +74,16 @@
                     <td>
                         <input type="text" name="dept_id" id="DEPT_ID" />
                     </td>
+                <tr>
+                    <td>
+                        <label for="USER_ROLE"  id="form_header">職級</label>
+                    </td>
+                    <td>
+                        一般:<input type="radio" name="user_rank" value="0">
+                        課長:<input type="radio" name="user_rank"  value="1">
+                        部長:<input type="radio" name="user_rank"  value="2">
+                        役員:<input type="radio" name="user_rank"  value="3">
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -80,6 +92,7 @@
                     <td>
                         一般:<input type="radio" name="user_role" value="0">
                         管理者:<input type="radio" name="user_role" value="1">
+                        システム管理者:<input type="radio" name="user_role" value="2">
                     </td>
                 </tr>
                 <tr>

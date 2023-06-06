@@ -41,9 +41,10 @@ public class CreateUserServlet extends HttpServlet {
 
         if( !request.getParameter("user_name").isBlank() &&
                 !StringCheck.IsBlankOrNotNumelic(request.getParameter("dept_id")) &&
-                    request.getParameter("user_role") != null&&
-                        request.getParameter("user_class") != null &&
-                            !request.getParameter("password").isBlank())
+                    request.getParameter("user_rank") != null&&
+                        request.getParameter("user_role") != null&&
+                            request.getParameter("user_class") != null &&
+                                !request.getParameter("password").isBlank())
         {
 
         User u = new User();
@@ -53,6 +54,9 @@ public class CreateUserServlet extends HttpServlet {
 
         Integer dept_id = Integer.parseInt(request.getParameter("dept_id")) ;
         u.setDept_id(dept_id);
+
+        Integer user_rank =  Integer.parseInt(request.getParameter("user_rank"));
+        u.setUser_rank(user_rank);
 
        Integer user_role =  Integer.parseInt(request.getParameter("user_role"));
        u.setUser_role(user_role);
@@ -75,6 +79,7 @@ public class CreateUserServlet extends HttpServlet {
         System.out.println(user_role);
         System.out.println(user_class);
         System.out.println(password);
+        System.out.println("user_rank:"+user_rank);
 
         // データベースに保存
         em.persist(u);

@@ -61,9 +61,11 @@ public class UpdateRpRestRequestServlet extends HttpServlet {
 
          rr.setRequest_id(request_id);
 
-         String return_reason= request.getParameter("return_reason");
-         rr.setReturn_reason(return_reason);
-         System.out.println(return_reason);
+         if(approval_type.equals("差戻")){
+             String return_reason= request.getParameter("return_reason");
+             rr.setReturn_reason(return_reason);
+             System.out.println(return_reason);
+         }
 
          Integer del_flg=JpaConst.FLG_FALSE;
          rr.setDel_flg(del_flg);
@@ -92,17 +94,17 @@ public class UpdateRpRestRequestServlet extends HttpServlet {
          r.setPaper_id(JpaConst.PAPER_ID_REST);
 
          if(approval_type.equals("承認")) {
-             r.setAgain_flg(JpaConst.FLG_FALSE);
-             r.setProgress( r.getProgress()+1);
+                 r.setAgain_flg(JpaConst.FLG_FALSE);
+                 r.setProgress( r.getProgress()+1);
 
-             if(em.createNamedQuery("selectClearance_PaperIdAndProgress",ApprovalClearance.class).setParameter("id",request_id).setParameter("progress",r.getProgress()).getResultList().size()==0){
-                 r.setOk_flg(JpaConst.FLG_TRUE);
-             }
-             else{
-                 r.setOk_flg(JpaConst.FLG_FALSE);
-             }
+                 if(em.createNamedQuery("selectClearance_PaperIdAndProgress",ApprovalClearance.class).setParameter("id",request_id).setParameter("progress",r.getProgress()).getResultList().size()==0){
+                     r.setOk_flg(JpaConst.FLG_TRUE);
+                 }
+                 else{
+                     r.setOk_flg(JpaConst.FLG_FALSE);
+                 }
          }
-         else {
+         else  if(approval_type.equals("差戻")){
              r.setAgain_flg(JpaConst.FLG_TRUE);
              r.setProgress(JpaConst.FLG_FALSE);
          }
