@@ -36,13 +36,16 @@ public class IndexRpRestServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if(request.getSession().getAttribute("last_page")=="/req_paper_list")
+        Integer user_type= (Integer)request.getSession().getAttribute("type");
+
+        if(user_type==null)
         {
             request.setAttribute("user_type", JpaConst.requestState.CREATE.ordinal());
         }
         else
         {
-            request.setAttribute("user_type", JpaConst.requestState.VIEW.ordinal());
+            request.setAttribute("user_type", user_type);
+
             if(request.getSession().getAttribute("edited_data_id")!=null)
             {
                 EntityManager em = DBUtil.createEntityManager();
@@ -59,8 +62,6 @@ public class IndexRpRestServlet extends HttpServlet {
             }
         }
 
-
-
         System.out.println("get:"+request.getSession().getAttribute("edited_data_id"));
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/contents/rp_rest.jsp");
         rd.forward(request, response);
@@ -74,6 +75,7 @@ public class IndexRpRestServlet extends HttpServlet {
         System.out.println("post");
         Integer request_id=Integer.parseInt(request.getParameter("request_id"));
         System.out.println("id;"+request_id);
+        Integer user_type= Integer.parseInt(request.getParameter("type"));
 
         EntityManager em = DBUtil.createEntityManager();
         List<Request_Rest> rr = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_RequestId",Request_Rest.class).setParameter("id", request_id).getResultList();
@@ -91,14 +93,15 @@ public class IndexRpRestServlet extends HttpServlet {
         request.setAttribute("redo_flg", r.get(0).getAgain_flg());
         System.out.println("get(0).getAgain_flg():"+r.get(0).getAgain_flg());
 
-        if(Integer.parseInt(request.getParameter("type"))==JpaConst.requestState.VIEW.ordinal())
-        {
-            request.setAttribute("user_type", JpaConst.requestState.VIEW.ordinal());
+        if(user_type==null){
+            request.setAttribute("user_type", JpaConst.requestState.CREATE.ordinal());
         }
-        else if(Integer.parseInt(request.getParameter("type"))==JpaConst.requestState.APPLOVAL.ordinal())
+        else
         {
-            request.setAttribute("user_type", JpaConst.requestState.APPLOVAL.ordinal());
+            request.setAttribute("user_type", user_type);
         }
+
+        System.out.println("user_type;"+user_type);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/contents/rp_rest.jsp");
         rd.forward(request, response);

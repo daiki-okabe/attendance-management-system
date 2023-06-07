@@ -444,7 +444,7 @@ a.btn--blue--small:hover {
     min-height: 600px;
     justify-content: center;
     align-items: flex-start;
-    margin:2%;
+    margin:5px;
 }
 
 #request_form_list{

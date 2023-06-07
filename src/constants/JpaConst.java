@@ -40,7 +40,8 @@ public interface JpaConst {
         static  enum requestState{
             CREATE,
             APPLOVAL,
-            VIEW
+            VIEW,
+            UPDATE
         }
 
         enum DayOfWeek  {
@@ -69,5 +70,7 @@ public interface JpaConst {
         final String INPUT="登録";
         final String UPDATE="更新";
         final String DELETE="削除";
+
+        final int DEPT_MANAGE_1=101;//管理部管理一課
 }
 

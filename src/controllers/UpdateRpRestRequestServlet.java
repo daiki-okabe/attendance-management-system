@@ -56,7 +56,8 @@ public class UpdateRpRestRequestServlet extends HttpServlet {
 
          String approval_type= request.getParameter("approval_type");
 
-         List<Request_Rest> data = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_RequestId",Request_Rest.class).setParameter("id",request_id).getResultList();
+         List<Request_Rest> data = (List<Request_Rest>)em.createNamedQuery("selectRequestRest_RequestId",Request_Rest.class)
+                 .setParameter("id",request_id).getResultList();
          Request_Rest rr = data.get(0);
 
          rr.setRequest_id(request_id);
@@ -72,10 +73,8 @@ public class UpdateRpRestRequestServlet extends HttpServlet {
 
          LocalDateTime currentTime =LocalDateTime.now();     // 現在の日時を取得
          currentTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm" ));
-         rr.setInp_date(currentTime);
          rr.setUpd_date(currentTime);
 
-         rr.setInp_user(login_user_name);
          rr.setUpd_user(login_user_name);
 
          // データベースに保存
@@ -85,19 +84,19 @@ public class UpdateRpRestRequestServlet extends HttpServlet {
 
          session.setAttribute("request_id", request_id);
          session.setAttribute("user_id",login_user);
-         session.setAttribute("last_page", "/rp_rest_create");
+         session.setAttribute("type", JpaConst.requestState.VIEW.ordinal());
 
          Request r=(Request) em.createNamedQuery("selectRequest_RequestId",Request.class).setParameter("id",request_id).getResultList().get(0);
 
          r.setRequest_id(request_id);
-         r.setUser_id(login_user);
          r.setPaper_id(JpaConst.PAPER_ID_REST);
 
          if(approval_type.equals("承認")) {
                  r.setAgain_flg(JpaConst.FLG_FALSE);
                  r.setProgress( r.getProgress()+1);
 
-                 if(em.createNamedQuery("selectClearance_PaperIdAndProgress",ApprovalClearance.class).setParameter("id",request_id).setParameter("progress",r.getProgress()).getResultList().size()==0){
+                 if(em.createNamedQuery("selectClearance_PaperIdAndProgress",ApprovalClearance.class)
+                         .setParameter("id",request_id).setParameter("progress",r.getProgress()).getResultList().size()==0){
                      r.setOk_flg(JpaConst.FLG_TRUE);
                  }
                  else{
@@ -108,9 +107,11 @@ public class UpdateRpRestRequestServlet extends HttpServlet {
              r.setAgain_flg(JpaConst.FLG_TRUE);
              r.setProgress(JpaConst.FLG_FALSE);
          }
+         else  if(approval_type.equals("再申請")){
+             r.setAgain_flg(JpaConst.FLG_FALSE);
+             r.setProgress(JpaConst.FLG_FALSE);
+         }
 
-         r.setInp_date(currentTime);
-         r.setInp_user(login_user_name);
          r.setUpd_date(currentTime);
          r.setUpd_user(login_user_name);
          r.setDel_flg(del_flg);

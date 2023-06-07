@@ -112,7 +112,6 @@ public class CreateRpRestRequestServlet extends HttpServlet {
 
          session.setAttribute("request_id", request_id);
          session.setAttribute("user_id",user_id);
-         session.setAttribute("last_page", "/rp_rest_create");
 
          Request r=new Request();
 

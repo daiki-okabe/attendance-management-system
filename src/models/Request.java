@@ -16,6 +16,10 @@ import javax.persistence.Table;
         query = "SELECT r FROM Request AS r WHERE r.del_flg=0 ORDER BY r.user_id ASC"
     ),
     @NamedQuery(
+            name = "getWaitingRequest",
+            query = "SELECT r FROM Request AS r WHERE r.del_flg=0 AND r.ok_flg=0 ORDER BY r.user_id ASC"
+        ),
+    @NamedQuery(
             name = "selectRequest_UserId",
             query = "SELECT r FROM Request AS r WHERE r.del_flg=0 AND r.user_id=:id ORDER BY r.paper_id ASC"
     ),
